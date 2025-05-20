@@ -39,7 +39,9 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost",
-  "127.0.0.1",]
+  "127.0.0.1",
+  os.getenv("RENDER_EXTERNAL_HOSTNAME", ""),
+  ]
 
 
 # Application definition

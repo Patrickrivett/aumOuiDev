@@ -38,7 +38,8 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost",
+  "127.0.0.1",]
 
 
 # Application definition
@@ -54,7 +55,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djoser',
 ]
+
+DJOSER = {
+  'LOGIN_FIELD': 'email',            # or 'username'
+  'USER_ID_FIELD': 'id',
+  'SEND_ACTIVATION_EMAIL': False,    # flip on if you do email verification
+  'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+  'PASSWORD_RESET_CONFIRM_URL': 'https://www.your-frontend.com/reset-password/{uid}/{token}',
+}
+
+# Email (Brevo SMTP) configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('BREVO_SMTP_HOST')
+EMAIL_PORT = int(os.getenv('BREVO_SMTP_PORT', 587))
+EMAIL_HOST_USER = os.getenv('BREVO_SMTP_USER')
+EMAIL_HOST_PASSWORD = os.getenv('BREVO_SMTP_PASS')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

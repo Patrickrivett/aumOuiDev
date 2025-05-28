@@ -61,7 +61,7 @@ INSTALLED_APPS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'accounts.backends.EmailOnlyModelBackend',    # our new, email‐only backend
+    'djoser.auth_backends.LoginFieldBackend',    # our new, email‐only backend
     'django.contrib.auth.backends.ModelBackend',   # fallback for admin, if you still need username
  ]
 

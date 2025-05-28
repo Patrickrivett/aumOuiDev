@@ -60,6 +60,11 @@ INSTALLED_APPS = [
     'djoser',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailOnlyModelBackend',    # our new, email‐only backend
+    'django.contrib.auth.backends.ModelBackend',   # fallback for admin, if you still need username
+ ]
+
  # Allow login via either email _or_ username
 
 DJOSER = {

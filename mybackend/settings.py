@@ -60,12 +60,21 @@ INSTALLED_APPS = [
     'djoser',
 ]
 
+ # Allow login via either email _or_ username
+AUTHENTICATION_BACKENDS = [
+     'accounts.backends.EmailOrUsernameModelBackend',   # our custom backend
+     'django.contrib.auth.backends.ModelBackend',       # Django’s default
+ ]
+
 DJOSER = {
   'LOGIN_FIELD': 'email',            # or 'username'
   'USER_ID_FIELD': 'id',
   'SEND_ACTIVATION_EMAIL': False,    # flip on if you do email verification
   'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
   'PASSWORD_RESET_CONFIRM_URL': 'https://www.your-frontend.com/reset-password/{uid}/{token}',
+  'SERIALIZERS': {
+    'token_create': 'djoser.serializers.TokenCreateSerializer',
+  },
 }
 
 # Email (Brevo SMTP) configuration

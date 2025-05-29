@@ -48,3 +48,20 @@ class UserSerializer(serializers.ModelSerializer):
             'skin_types',
             'allergies',
         )
+
+# accounts/serializers.py
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Use 'email' instead of 'username' when obtaining JWT tokens.
+    """
+    def validate(self, attrs):
+        # `attrs` contains your POST data: {'email': ..., 'password': ...}
+        # We delegate to the parent, but map 'email' → 'username'
+        credentials = {
+            'username': attrs.get('email'),
+            'password': attrs.get('password')
+        }
+        return super().validate(credentials)

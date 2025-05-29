@@ -26,6 +26,11 @@ DATABASES = {
     )
 }
 
+AUTHENTICATION_BACKENDS = [
+    'djoser.auth_backends.LoginFieldBackend',    # ← lets users log in with email
+    'django.contrib.auth.backends.ModelBackend', # ← fallback (admin, etc.)
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

@@ -3,21 +3,21 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
 class CustomUserManager(BaseUserManager):
+    use_in_migrations = True
+
     def create_user(self, email, password=None, username=None, **extra_fields):
         if not email:
             raise ValueError("Users must have an email address")
         email = self.normalize_email(email)
-
-        # default username to the part before “@”
-        uname = username or email.split('@')[0]
-        original = uname
+        # default username to part before “@” if none provided
+        username = username or email.split('@')[0]
+        original = username
         count = 1
-        # avoid collisions
-        while self.model.objects.filter(username=uname).exists():
-            uname = f"{original}{count}"
+        while self.model.objects.filter(username=username).exists():
+            username = f"{original}{count}"
             count += 1
 
-        user = self.model(email=email, username=uname, **extra_fields)
+        user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -29,7 +29,12 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    # plug in the custom manager
+    # ← make email the “username” field everywhere
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    email = models.EmailField('email address', unique=True)
+
     objects = CustomUserManager()
 
     age_group  = models.CharField(max_length=20, blank=True)
@@ -38,4 +43,4 @@ class CustomUser(AbstractUser):
     allergies  = ArrayField(models.CharField(max_length=50), default=list, blank=True)
 
     def __str__(self):
-        return self.username
+        return self.email

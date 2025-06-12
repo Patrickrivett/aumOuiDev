@@ -101,8 +101,8 @@ DJOSER = {
     'USER_ID_FIELD': 'id',
     'SEND_ACTIVATION_EMAIL': False,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
-    'PASSWORD_RESET_CONFIRM_URL': 'https://symphonious-licorice-91a25d.netlify.app/reset-password.html?uid={uid}&token={token}',
-    'DOMAIN': 'symphonious-licorice-91a25d.netlify.app',
+    'PASSWORD_RESET_CONFIRM_URL': 'reset-password.html?uid={uid}&token={token}',
+    'DOMAIN': 'symphonious-licorice-91a25d.netlify.app',  # ← This should be your Netlify domain
     'SITE_NAME': 'AumOui Lifestyle Essentials',
     'PROTOCOL': 'https',
     'PASSWORD_RESET_CONFIRM_RETYPE': True,

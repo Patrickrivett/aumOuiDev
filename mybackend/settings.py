@@ -57,6 +57,14 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'symphonious-licorice-91a25d.netlify.app',  # Add this
+    os.getenv('RENDER_EXTERNAL_HOSTNAME', ''),
+]
+
+
 # For development only - be more restrictive in production
 CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'mybackend.urls'
@@ -102,11 +110,13 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': False,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_CONFIRM_URL': 'reset-password.html?uid={uid}&token={token}',
-    'DOMAIN': 'symphonious-licorice-91a25d.netlify.app',  # ← This should be your Netlify domain
+    'DOMAIN': 'symphonious-licorice-91a25d.netlify.app',
     'SITE_NAME': 'AumOui Lifestyle Essentials',
     'PROTOCOL': 'https',
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'FRONTEND_URL': 'https://symphonious-licorice-91a25d.netlify.app',  # Add this
 }
+
 
 
 # Brevo SMTP

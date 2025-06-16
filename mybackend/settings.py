@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.postgres',
+    'django.contrib.sites',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'djoser',
@@ -105,7 +106,7 @@ SIMPLE_JWT = {
 
 # Djoser config: signup, password-reset, and JWT (email-based) all “just work”
 # Add these to override any site framework settings
-from django.contrib.sites.models import Site
+SITE_ID = 1
 FRONTEND_URL = 'https://symphonious-licorice-91a25d.netlify.app'
 
 # Add this to your DJOSER config

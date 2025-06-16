@@ -144,33 +144,3 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# Add this at the END of your settings.py file
-
-# Auto-update Site domain on startup
-def update_site_domain():
-    """Automatically update the Site domain to match our frontend"""
-    try:
-        from django.contrib.sites.models import Site
-        site, created = Site.objects.get_or_create(pk=1)
-        if site.domain != 'symphonious-licorice-91a25d.netlify.app':
-            site.domain = 'symphonious-licorice-91a25d.netlify.app'
-            site.name = 'AumOui Lifestyle Essentials'
-            site.save()
-            print(f"Site domain updated to: {site.domain}")
-    except Exception as e:
-        print(f"Could not update site domain: {e}")
-        pass
-
-# Run the update (only in production/when not migrating)
-import sys
-if 'migrate' not in sys.argv and 'makemigrations' not in sys.argv:
-    try:
-        import django
-        if django.apps.apps.ready:
-            update_site_domain()
-    except:
-        pass
-    
-    

@@ -104,6 +104,11 @@ SIMPLE_JWT = {
 }
 
 # Djoser config: signup, password-reset, and JWT (email-based) all “just work”
+# Add these to override any site framework settings
+from django.contrib.sites.models import Site
+FRONTEND_URL = 'https://symphonious-licorice-91a25d.netlify.app'
+
+# Add this to your DJOSER config
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_ID_FIELD': 'id',
@@ -114,10 +119,14 @@ DJOSER = {
     'SITE_NAME': 'AumOui Lifestyle Essentials',
     'PROTOCOL': 'https',
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'EMAIL': {
+        'password_reset': 'djoser.email.PasswordResetEmail',
+    }
 }
 
-# Add this debug print
-print(f"DJOSER DOMAIN CONFIG: {DJOSER['DOMAIN']}")
+# Add this to ensure the correct base URL is used
+DJOSER_FRONTEND_URL = 'https://symphonious-licorice-91a25d.netlify.app'
+
 
 # Brevo SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
